@@ -21,10 +21,8 @@ void FunctionNode::AddNeighbor(std::string functionName) {
 }
 
 void FunctionNode::UpdateNeighbor(std::string functionName) {
-	if (IsNeighbor(functionName)) {
-		IncrementEdgeWeight(functionName);
+    if (!IsNeighbor(functionName)) {
+        AddNeighbor(functionName);
 	}
-	else {
-		AddNeighbor(functionName);
-	}
+    IncrementEdgeWeight(functionName);
 }

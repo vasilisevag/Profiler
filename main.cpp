@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[]) {
     QApplication profilerApplication(argc, argv);
+    //profilerApplication.setStyle(QStyleFactory::create("Fusion"));
     CodeWindow codeWindow;
     codeWindow.show();
 

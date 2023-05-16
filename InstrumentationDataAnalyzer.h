@@ -15,6 +15,9 @@ public:
 	void CreateFunctionCallTree(const std::string& filename);
 	std::vector<std::pair<std::string, double>> FunctionsInclusiveTimes();
 	std::vector<std::pair<std::string, double>> FunctionsExclusiveTimes();
+    void traverseTreeHelper(std::shared_ptr<FunctionNode> functionNode);
+    void traverseTree();
+    std::unordered_map<std::string, int> callsTotal;
 private:
 	void FindFunctionNamesHelper(std::shared_ptr<FunctionNode> functionNode, std::vector<std::string>& functionNames);
 	std::vector<std::string> FindFunctionNames();

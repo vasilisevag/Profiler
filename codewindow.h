@@ -17,6 +17,12 @@
 #include <QStackedWidget>
 #include "profilingcontroller.h"
 #include "InstrumentationDataAnalyzer.h"
+#include <QBarSeries>
+#include <QBarSet>
+#include <QChart>
+#include <QChartView>
+#include <QTableWidget>
+#include <QScrollBar>
 
 class CodeWindow : public QMainWindow {
   Q_OBJECT
@@ -47,6 +53,8 @@ class CodeWindow : public QMainWindow {
     QToolBar leftToolBar;
     QAction actionOpen;
     QScrollArea codeScrollArea;
+    QScrollArea resultsScrollArea;
+    QScrollBar resultsScrollBar;
     std::vector<QString> codes;
     std::vector<CodeLabel*> codeLabels;
     QPushButton runButton;
@@ -54,10 +62,13 @@ class CodeWindow : public QMainWindow {
     QPushButton profilingResultsButton;
     QStackedWidget pages;
     std::vector<QString> filenames; // temporary solution
-    QLabel resultsLabel;
+    QWidget resultsWidget;
     QString folderPath;
     ProfilingController pc;
     InstrumentationDataAnalyzer ida;
+    QtCharts::QChartView inclusiveTimesBarSeries;
+    QtCharts::QChartView exclusiveTimesBarSeries;
+    QTableWidget callsTable;
 };
 
 #endif // CODEWINDOW_H

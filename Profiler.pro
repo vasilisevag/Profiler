@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT = core gui widgets
+QT = core gui widgets charts
 
 CONFIG += c++17
 

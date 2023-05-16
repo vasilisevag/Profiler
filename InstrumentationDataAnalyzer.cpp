@@ -1,10 +1,12 @@
 #include "InstrumentationDataAnalyzer.h"
 #include <unordered_map>
 #include <algorithm>
+#include <iostream>
 
-InstrumentationDataAnalyzer::InstrumentationDataAnalyzer() : instrumentationDataParser(std::make_shared<InstrumentationDataParser>()), functionCallTree() {}
+InstrumentationDataAnalyzer::InstrumentationDataAnalyzer() : functionCallTree(), instrumentationDataParser(std::make_shared<InstrumentationDataParser>()) {}
 
 void InstrumentationDataAnalyzer::CreateFunctionCallTree(const std::string& filename) {
+    std::cout << "good so far\n\n";
 	functionCallTree = instrumentationDataParser->FunctionCallTree(filename);
 }
 
@@ -93,4 +95,17 @@ std::vector<std::pair<std::string, double>> InstrumentationDataAnalyzer::Functio
     sort(std::begin(functionsExclusiveTimesVector), std::end(functionsExclusiveTimesVector), [](auto x, auto y) {return x.second <= y.second; });
 
 	return functionsExclusiveTimesVector;
+}
+
+void InstrumentationDataAnalyzer::traverseTreeHelper(std::shared_ptr<FunctionNode> functionNode){
+    for(auto i : functionNode->neighbors){
+        if(callsTotal.find(i.first) == callsTotal.end())
+            callsTotal[i.first] = 0;
+        callsTotal[i.first] += i.second.second;
+        traverseTreeHelper(i.second.first);
+    }
+}
+
+void InstrumentationDataAnalyzer::traverseTree(){
+    traverseTreeHelper(functionCallTree.value().root);
 }
